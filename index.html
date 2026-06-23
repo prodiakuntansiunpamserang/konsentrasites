@@ -173,8 +173,8 @@ button:hover{
         <h1>TES PEMINATAN</h1>
         <p>Program Studi Akuntansi UNPAM Serang</p>
 
+        <input type="text" id="nama" placeholder="Masukkan Nama Lengkap">
         <input type="text" id="nim" placeholder="Masukkan NIM">
-        <input type="password" id="password" placeholder="Masukkan Password">
 
         <button onclick="login()">Masuk</button>
     </div>
@@ -555,13 +555,16 @@ const questionBank = {
 };
 
 function login(){
+    let nama = document.getElementById("nama").value.trim();
     let nim = document.getElementById("nim").value.trim();
-    let password = document.getElementById("password").value.trim();
 
-    if(nim === "" || password === ""){
-        alert("Isi NIM dan Password!");
+    if(nama === "" || nim === ""){
+        alert("Isi Nama dan NIM!");
         return;
     }
+
+    localStorage.setItem("nama", nama);
+    localStorage.setItem("nim", nim);
 
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("dashboard").classList.remove("hidden");
@@ -569,7 +572,7 @@ function login(){
 
 function startTest(category){
     currentCategory = category;
-    currentQuestions = questionBank[category];
+    currentQuestions = questionBank[category].sort(() => Math.random() - 0.5);
 
     document.getElementById("dashboard").classList.add("hidden");
     document.getElementById("testPage").classList.remove("hidden");
@@ -610,25 +613,38 @@ function renderQuestions(){
 
 function startTimer(){
     clearInterval(timer);
-    timeLeft = 300;
+
+    timeLeft = localStorage.getItem("timer")
+? parseInt(localStorage.getItem("timer"))
+: 300;
+
+document.getElementById("timer").style.color = "#facc15";
 
     timer = setInterval(()=>{
-        let min = Math.floor(timeLeft/60);
-        let sec = timeLeft%60;
+    let min = Math.floor(timeLeft/60);
+    let sec = timeLeft%60;
 
-        document.getElementById("timer").innerText =
-            `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+    document.getElementById("timer").innerText =
+    `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
 
-        timeLeft--;
+    localStorage.setItem("timer", timeLeft);
 
-        if(timeLeft < 0){
-            submitTest();
-        }
-    },1000);
+    if(timeLeft <= 60){
+        document.getElementById("timer").style.color = "red";
+    }
+
+    timeLeft--;
+
+    if(timeLeft < 0){
+        submitTest();
+    }
+
+},1000);
 }
 
 function submitTest(){
     clearInterval(timer);
+    localStorage.removeItem("timer");
 
     let score = 0;
 
@@ -647,9 +663,13 @@ function submitTest(){
         "Nilai Anda: " + score;
 
     if(score >= 80){
-        document.getElementById("statusText").innerText =
-        "LULUS - Selamat, Anda lolos konsentrasi ini.";
-    }else{
+
+    localStorage.setItem("lulus", currentCategory);
+
+    document.getElementById("statusText").innerText =
+    "LULUS - Selamat, Anda lolos konsentrasi ini.";
+
+}else{
         document.getElementById("statusText").innerText =
         "TIDAK LULUS - Wajib Tes Ulang.";
     }
