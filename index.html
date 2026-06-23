@@ -197,51 +197,333 @@ let timer;
 let timeLeft = 300;
 
 const questionBank = {
-    keuangan: [
-        {
-            question: "Urutan siklus akuntansi yang benar adalah ....",
-            options: ["A", "B", "C", "D", "E"],
-            answer: "C"
-        },
-        {
-            question: "Perusahaan menerima kas dari pelanggan Rp5.000.000. Jurnal yang benar adalah ....",
-            options: ["A", "B", "C", "D", "E"],
-            answer: "A"
-        },
-        { question: "Fungsi utama rekonsiliasi bank adalah ....", options: ["A","B","C","D","E"], answer: "B" },
-        { question: "Beban perlengkapan yang diakui adalah ....", options: ["A","B","C","D","E"], answer: "C" },
-        { question: "Jumlah pengisian kembali kas kecil adalah ....", options: ["A","B","C","D","E"], answer: "C" },
-        { question: "Penyusutan per tahun metode garis lurus adalah ....", options: ["A","B","C","D","E"], answer: "C" },
-        { question: "Jumlah saldo debit neraca saldo adalah ....", options: ["A","B","C","D","E"], answer: "C" },
-        { question: "Saldo kas benar setelah rekonsiliasi adalah ....", options: ["A","B","C","D","E"], answer: "D" },
-        { question: "HPP metode FIFO adalah ....", options: ["A","B","C","D","E"], answer: "B" },
-        { question: "Jurnal penurunan nilai aset adalah ....", options: ["A","B","C","D","E"], answer: "C" }
-    ],
-
     audit: [
-        { question:"Tujuan utama audit laporan keuangan adalah ....", options:["A","B","C","D"], answer:"B" },
-        { question:"Pihak yang bertanggung jawab atas penyusunan laporan keuangan adalah ....", options:["A","B","C","D"], answer:"C" },
-        { question:"Sikap mental auditor disebut ....", options:["A","B","C","D"], answer:"B" },
-        { question:"Pengamatan fisik persediaan termasuk ....", options:["A","B","C","D"], answer:"C" },
-        { question:"Asersi seluruh transaksi tercatat disebut ....", options:["A","B","C","D"], answer:"A" },
-        { question:"Tujuan pengendalian internal adalah ....", options:["A","B","C","D"], answer:"C" },
-        { question:"Risiko auditor memberi opini wajar padahal salah saji disebut ....", options:["A","B","C","D"], answer:"D" },
-        { question:"Materialitas mengacu pada ....", options:["A","B","C","D"], answer:"B" },
-        { question:"Membandingkan data antarperiode disebut ....", options:["A","B","C","D"], answer:"C" },
-        { question:"Konfirmasi piutang menguji asersi ....", options:["A","B","C","D"], answer:"C" }
+        {
+            question:"Tujuan utama audit laporan keuangan adalah ....",
+            options:{
+                A:"Menyusun laporan keuangan perusahaan",
+                B:"Memberikan opini atas kewajaran laporan keuangan",
+                C:"Menentukan besarnya laba perusahaan",
+                D:"Menghitung pajak perusahaan"
+            },
+            answer:"B"
+        },
+        {
+            question:"Pihak yang bertanggung jawab atas penyusunan laporan keuangan adalah ....",
+            options:{
+                A:"Auditor independen",
+                B:"Pemerintah",
+                C:"Manajemen perusahaan",
+                D:"Investor"
+            },
+            answer:"C"
+        },
+        {
+            question:"Sikap mental auditor agar hasil audit dipercaya disebut ....",
+            options:{
+                A:"Materialitas",
+                B:"Independensi",
+                C:"Efisiensi",
+                D:"Objektivitas"
+            },
+            answer:"B"
+        },
+        {
+            question:"Bukti audit melalui pengamatan fisik persediaan termasuk ....",
+            options:{
+                A:"Bukti dokumenter",
+                B:"Bukti analitis",
+                C:"Bukti fisik",
+                D:"Bukti lisan"
+            },
+            answer:"C"
+        },
+        {
+            question:"Asersi seluruh transaksi telah dicatat adalah ....",
+            options:{
+                A:"Kelengkapan",
+                B:"Keberadaan",
+                C:"Penilaian",
+                D:"Hak dan kewajiban"
+            },
+            answer:"A"
+        },
+        {
+            question:"Pengendalian internal bertujuan untuk ....",
+            options:{
+                A:"Menghilangkan seluruh risiko",
+                B:"Menjamin selalu laba",
+                C:"Memberikan keyakinan memadai",
+                D:"Menggantikan auditor"
+            },
+            answer:"C"
+        },
+        {
+            question:"Risiko auditor memberi opini wajar padahal ada salah saji adalah ....",
+            options:{
+                A:"Risiko bisnis",
+                B:"Risiko pengendalian",
+                C:"Risiko inheren",
+                D:"Risiko audit"
+            },
+            answer:"D"
+        },
+        {
+            question:"Materialitas dalam audit mengacu pada ....",
+            options:{
+                A:"Jumlah transaksi besar",
+                B:"Tingkat kesalahan yang memengaruhi keputusan",
+                C:"Nilai aset tetap",
+                D:"Total laba"
+            },
+            answer:"B"
+        },
+        {
+            question:"Membandingkan data antarperiode disebut ....",
+            options:{
+                A:"Inspeksi",
+                B:"Konfirmasi",
+                C:"Prosedur analitis",
+                D:"Rekalkulasi"
+            },
+            answer:"C"
+        },
+        {
+            question:"Surat konfirmasi piutang menguji asersi ....",
+            options:{
+                A:"Kelengkapan",
+                B:"Penyajian",
+                C:"Keberadaan",
+                D:"Penilaian"
+            },
+            answer:"C"
+        }
     ],
 
     pajak: [
-        { question:"Yang termasuk subjek PPh adalah ....", options:["A","B","C","D","E"], answer:"A" },
-        { question:"PPh Pasal 21 dikenakan atas ....", options:["A","B","C","D","E"], answer:"B" },
-        { question:"Penghasilan pegawai tetap setiap bulan disebut ....", options:["A","B","C","D","E"], answer:"C" },
-        { question:"Gaji Rp8.000.000 per bulan termasuk objek ....", options:["A","B","C","D","E"], answer:"C" },
-        { question:"PPh Pasal 22 berkaitan dengan ....", options:["A","B","C","D","E"], answer:"B" },
-        { question:"Pajak jasa konsultan dipotong dengan ....", options:["A","B","C","D","E"], answer:"C" },
-        { question:"Bonus pegawai dalam PPh 21 termasuk ....", options:["A","B","C","D","E"], answer:"B" },
-        { question:"Pajak luar negeri dikreditkan melalui ....", options:["A","B","C","D","E"], answer:"D" },
-        { question:"Angsuran pajak bulanan diatur dalam ....", options:["A","B","C","D","E"], answer:"E" },
-        { question:"Pajak final persewaan tanah termasuk ....", options:["A","B","C","D","E"], answer:"A" }
+        {
+            question:"Yang termasuk subjek Pajak Penghasilan (PPh) adalah...",
+            options:{
+                A:"Orang pribadi",
+                B:"Barang dagangan",
+                C:"Kendaraan bermotor",
+                D:"Tanah kosong",
+                E:"Bangunan"
+            },
+            answer:"A"
+        },
+        {
+            question:"PPh Pasal 21 dikenakan atas...",
+            options:{
+                A:"Impor barang",
+                B:"Penghasilan dari pekerjaan",
+                C:"Penjualan tanah",
+                D:"Dividen luar negeri",
+                E:"Hadiah undian"
+            },
+            answer:"B"
+        },
+        {
+            question:"Penghasilan pegawai tetap tiap bulan disebut...",
+            options:{
+                A:"Dividen",
+                B:"Royalti",
+                C:"Gaji",
+                D:"Bunga",
+                E:"Sewa"
+            },
+            answer:"C"
+        },
+        {
+            question:"Gaji pegawai tetap Rp8.000.000 termasuk objek pajak berdasarkan...",
+            options:{
+                A:"PPh 22",
+                B:"PPh 23",
+                C:"PPh 21",
+                D:"PPh 24",
+                E:"PPh 25"
+            },
+            answer:"C"
+        },
+        {
+            question:"PPh Pasal 22 umumnya berkaitan dengan kegiatan...",
+            options:{
+                A:"Penggajian",
+                B:"Perdagangan barang tertentu",
+                C:"Pembayaran jasa",
+                D:"Penghasilan luar negeri",
+                E:"Angsuran bulanan"
+            },
+            answer:"B"
+        },
+        {
+            question:"Pajak jasa konsultan dipotong dengan...",
+            options:{
+                A:"PPh 21",
+                B:"PPh 22",
+                C:"PPh 23",
+                D:"PPh 24",
+                E:"PPh 25"
+            },
+            answer:"C"
+        },
+        {
+            question:"Bonus pegawai dalam PPh 21 termasuk...",
+            options:{
+                A:"Bukan objek pajak",
+                B:"Penghasilan bruto",
+                C:"Penghasilan netto",
+                D:"Pengurang pajak",
+                E:"Kredit pajak"
+            },
+            answer:"B"
+        },
+        {
+            question:"Pajak luar negeri dikreditkan melalui...",
+            options:{
+                A:"PPh 21",
+                B:"PPh 22",
+                C:"PPh 23",
+                D:"PPh 24",
+                E:"PPh 25"
+            },
+            answer:"D"
+        },
+        {
+            question:"Angsuran pajak bulanan diatur dalam...",
+            options:{
+                A:"PPh 4(2)",
+                B:"PPh 15",
+                C:"PPh 23",
+                D:"PPh 24",
+                E:"PPh 25"
+            },
+            answer:"E"
+        },
+        {
+            question:"Pajak final persewaan tanah termasuk...",
+            options:{
+                A:"PPh 4(2)",
+                B:"PPh 15",
+                C:"PPh 21",
+                D:"PPh 22",
+                E:"PPh 23"
+            },
+            answer:"A"
+        }
+    ],
+
+    keuangan: [
+        {
+            question:"Urutan siklus akuntansi yang benar adalah ....",
+            options:{
+                A:"Jurnal → Neraca Saldo → Buku Besar → Laporan Keuangan",
+                B:"Buku Besar → Jurnal → Neraca Saldo → Laporan Keuangan",
+                C:"Jurnal → Buku Besar → Neraca Saldo → Laporan Keuangan",
+                D:"Neraca Saldo → Buku Besar → Jurnal → Laporan Keuangan",
+                E:"Buku Besar → Neraca Saldo → Jurnal → Laporan Keuangan"
+            },
+            answer:"C"
+        },
+        {
+            question:"Jurnal penerimaan kas pelanggan Rp5.000.000 adalah ....",
+            options:{
+                A:"Kas (D), Pendapatan (K)",
+                B:"Pendapatan (D), Kas (K)",
+                C:"Piutang (D), Kas (K)",
+                D:"Kas (K), Pendapatan (D)",
+                E:"Beban (D), Kas (K)"
+            },
+            answer:"A"
+        },
+        {
+            question:"Fungsi utama rekonsiliasi bank adalah ....",
+            options:{
+                A:"Menghitung laba",
+                B:"Menyesuaikan saldo kas dengan bank",
+                C:"Menghitung penyusutan",
+                D:"Menentukan persediaan",
+                E:"Menghitung pajak"
+            },
+            answer:"B"
+        },
+        {
+            question:"Besarnya beban perlengkapan adalah ....",
+            options:{
+                A:"Rp1.500.000",
+                B:"Rp2.000.000",
+                C:"Rp2.500.000",
+                D:"Rp3.000.000",
+                E:"Rp4.000.000"
+            },
+            answer:"C"
+        },
+        {
+            question:"Jumlah pengisian kembali kas kecil adalah ....",
+            options:{
+                A:"Rp750.000",
+                B:"Rp900.000",
+                C:"Rp1.000.000",
+                D:"Rp1.100.000",
+                E:"Rp1.200.000"
+            },
+            answer:"C"
+        },
+        {
+            question:"Penyusutan per tahun metode garis lurus adalah ....",
+            options:{
+                A:"Rp16.000.000",
+                B:"Rp18.000.000",
+                C:"Rp20.000.000",
+                D:"Rp22.000.000",
+                E:"Rp24.000.000"
+            },
+            answer:"C"
+        },
+        {
+            question:"Jumlah saldo debit pada neraca saldo adalah ....",
+            options:{
+                A:"Rp50.000.000",
+                B:"Rp52.000.000",
+                C:"Rp55.000.000",
+                D:"Rp58.000.000",
+                E:"Rp60.000.000"
+            },
+            answer:"C"
+        },
+        {
+            question:"Saldo kas benar setelah rekonsiliasi adalah ....",
+            options:{
+                A:"Rp19.700.000",
+                B:"Rp20.500.000",
+                C:"Rp20.700.000",
+                D:"Rp20.900.000",
+                E:"Rp21.200.000"
+            },
+            answer:"D"
+        },
+        {
+            question:"HPP metode FIFO adalah ....",
+            options:{
+                A:"Rp1.500.000",
+                B:"Rp1.600.000",
+                C:"Rp1.700.000",
+                D:"Rp1.800.000",
+                E:"Rp1.900.000"
+            },
+            answer:"B"
+        },
+        {
+            question:"Jurnal penurunan nilai aset adalah ....",
+            options:{
+                A:"Kerugian Penurunan Nilai (D), Akumulasi Penurunan Nilai (K)",
+                B:"Akumulasi Penyusutan (D), Mesin (K)",
+                C:"Kas (D), Kerugian Penurunan Nilai (K)",
+                D:"Mesin (D), Kerugian Penurunan Nilai (K)",
+                E:"Beban Penyusutan (D), Akumulasi Penyusutan (K)"
+            },
+            answer:"C"
+        }
     ]
 };
 
