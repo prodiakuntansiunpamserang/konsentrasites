@@ -151,6 +151,23 @@ button:hover{
     margin-top:4px;
 }
 
+.check-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:20px;
+    font-size:14px;
+}
+
+.check-box input{
+    width:auto;
+}
+
+button:disabled{
+    opacity:0.5;
+    cursor:not-allowed;
+}
+
 @keyframes fadeIn{
     from{
         opacity:0;
@@ -181,14 +198,37 @@ button:hover{
 
     <!-- DASHBOARD -->
     <div id="dashboard" class="card hidden">
-        <h2>Pilih Konsentrasi</h2>
 
-        <div class="choices">
-            <button onclick="startTest('keuangan')">Keuangan</button>
-            <button onclick="startTest('audit')">Audit</button>
-            <button onclick="startTest('pajak')">Pajak</button>
-        </div>
+    <h2 id="welcomeText"></h2>
+
+    <div class="question">
+        <h3>Panduan & Tata Tertib Tes</h3>
+        <p>
+        1. Tes terdiri dari 3 konsentrasi: Keuangan, Audit, dan Pajak.<br><br>
+        2. Setiap konsentrasi terdiri dari 10 soal pilihan ganda dengan waktu 5 menit.<br><br>
+        3. Jawablah dengan jujur, mandiri, dan sesuai kemampuan sendiri.<br><br>
+        4. Dilarang menyontek, mencari jawaban di internet, atau menggunakan AI seperti ChatGPT.<br><br>
+        5. Segala aktivitas copy-paste, screenshot, foto layar, dan perpindahan tab dapat terdeteksi sistem.<br><br>
+        6. Nilai minimal kelulusan adalah 80.<br><br>
+        7. Jika nilai di bawah 80 wajib mengulang tes hingga lulus.<br><br>
+        8. Jika sudah lulus, tidak dapat berpindah konsentrasi lain.
+        </p>
+
+        <label class="check-box">
+            <input type="checkbox" id="agreeCheck" onchange="toggleTestButton()">
+            Saya sudah membaca dan memahami panduan tes
+        </label>
     </div>
+
+    <h2>Pilih Konsentrasi</h2>
+
+    <div class="choices">
+        <button id="btnKeuangan" onclick="startTest('keuangan')" disabled>Keuangan</button>
+        <button id="btnAudit" onclick="startTest('audit')" disabled>Audit</button>
+        <button id="btnPajak" onclick="startTest('pajak')" disabled>Pajak</button>
+    </div>
+
+</div>
 
     <!-- TEST -->
     <div id="testPage" class="card hidden">
@@ -566,8 +606,19 @@ function login(){
     localStorage.setItem("nama", nama);
     localStorage.setItem("nim", nim);
 
+    document.getElementById("welcomeText").innerText =
+    "Selamat datang, " + nama + " (" + nim + ")";
+
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("dashboard").classList.remove("hidden");
+}
+
+function toggleTestButton(){
+    let checked = document.getElementById("agreeCheck").checked;
+
+    document.getElementById("btnKeuangan").disabled = !checked;
+    document.getElementById("btnAudit").disabled = !checked;
+    document.getElementById("btnPajak").disabled = !checked;
 }
 
 function startTest(category){
