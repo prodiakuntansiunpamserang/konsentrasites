@@ -198,51 +198,59 @@ let timeLeft = 300;
 
 const questionBank = {
     keuangan: [
-        "Apa fungsi laporan arus kas?",
-        "Apa itu aset?",
-        "Apa itu liabilitas?",
-        "Apa itu ekuitas?",
-        "Apa itu ROI?",
-        "Apa itu BEP?",
-        "Apa itu budgeting?",
-        "Apa itu investasi?",
-        "Apa itu dividen?",
-        "Apa itu cash flow?"
+        {
+            question: "Urutan siklus akuntansi yang benar adalah ....",
+            options: ["A", "B", "C", "D", "E"],
+            answer: "C"
+        },
+        {
+            question: "Perusahaan menerima kas dari pelanggan Rp5.000.000. Jurnal yang benar adalah ....",
+            options: ["A", "B", "C", "D", "E"],
+            answer: "A"
+        },
+        { question: "Fungsi utama rekonsiliasi bank adalah ....", options: ["A","B","C","D","E"], answer: "B" },
+        { question: "Beban perlengkapan yang diakui adalah ....", options: ["A","B","C","D","E"], answer: "C" },
+        { question: "Jumlah pengisian kembali kas kecil adalah ....", options: ["A","B","C","D","E"], answer: "C" },
+        { question: "Penyusutan per tahun metode garis lurus adalah ....", options: ["A","B","C","D","E"], answer: "C" },
+        { question: "Jumlah saldo debit neraca saldo adalah ....", options: ["A","B","C","D","E"], answer: "C" },
+        { question: "Saldo kas benar setelah rekonsiliasi adalah ....", options: ["A","B","C","D","E"], answer: "D" },
+        { question: "HPP metode FIFO adalah ....", options: ["A","B","C","D","E"], answer: "B" },
+        { question: "Jurnal penurunan nilai aset adalah ....", options: ["A","B","C","D","E"], answer: "C" }
     ],
 
     audit: [
-        "Apa tujuan audit?",
-        "Apa itu materialitas?",
-        "Apa itu fraud?",
-        "Apa itu SPI?",
-        "Apa itu audit evidence?",
-        "Apa itu independensi?",
-        "Apa itu opini wajar?",
-        "Apa itu audit planning?",
-        "Apa itu risk audit?",
-        "Apa itu sampling audit?"
+        { question:"Tujuan utama audit laporan keuangan adalah ....", options:["A","B","C","D"], answer:"B" },
+        { question:"Pihak yang bertanggung jawab atas penyusunan laporan keuangan adalah ....", options:["A","B","C","D"], answer:"C" },
+        { question:"Sikap mental auditor disebut ....", options:["A","B","C","D"], answer:"B" },
+        { question:"Pengamatan fisik persediaan termasuk ....", options:["A","B","C","D"], answer:"C" },
+        { question:"Asersi seluruh transaksi tercatat disebut ....", options:["A","B","C","D"], answer:"A" },
+        { question:"Tujuan pengendalian internal adalah ....", options:["A","B","C","D"], answer:"C" },
+        { question:"Risiko auditor memberi opini wajar padahal salah saji disebut ....", options:["A","B","C","D"], answer:"D" },
+        { question:"Materialitas mengacu pada ....", options:["A","B","C","D"], answer:"B" },
+        { question:"Membandingkan data antarperiode disebut ....", options:["A","B","C","D"], answer:"C" },
+        { question:"Konfirmasi piutang menguji asersi ....", options:["A","B","C","D"], answer:"C" }
     ],
 
     pajak: [
-        "Apa itu PPN?",
-        "Apa itu PPh?",
-        "Apa itu NPWP?",
-        "Apa itu PKP?",
-        "Apa itu tax planning?",
-        "Apa itu tax avoidance?",
-        "Apa itu tax evasion?",
-        "Apa itu restitusi?",
-        "Apa itu SPT?",
-        "Apa itu fiskus?"
+        { question:"Yang termasuk subjek PPh adalah ....", options:["A","B","C","D","E"], answer:"A" },
+        { question:"PPh Pasal 21 dikenakan atas ....", options:["A","B","C","D","E"], answer:"B" },
+        { question:"Penghasilan pegawai tetap setiap bulan disebut ....", options:["A","B","C","D","E"], answer:"C" },
+        { question:"Gaji Rp8.000.000 per bulan termasuk objek ....", options:["A","B","C","D","E"], answer:"C" },
+        { question:"PPh Pasal 22 berkaitan dengan ....", options:["A","B","C","D","E"], answer:"B" },
+        { question:"Pajak jasa konsultan dipotong dengan ....", options:["A","B","C","D","E"], answer:"C" },
+        { question:"Bonus pegawai dalam PPh 21 termasuk ....", options:["A","B","C","D","E"], answer:"B" },
+        { question:"Pajak luar negeri dikreditkan melalui ....", options:["A","B","C","D","E"], answer:"D" },
+        { question:"Angsuran pajak bulanan diatur dalam ....", options:["A","B","C","D","E"], answer:"E" },
+        { question:"Pajak final persewaan tanah termasuk ....", options:["A","B","C","D","E"], answer:"A" }
     ]
 };
 
 function login(){
-    const nim = document.getElementById("nim").value.trim();
-    const password = document.getElementById("password").value.trim();
+    let nim = document.getElementById("nim").value.trim();
+    let password = document.getElementById("password").value.trim();
 
     if(nim === "" || password === ""){
-        alert("Harap isi NIM dan Password!");
+        alert("Isi NIM dan Password!");
         return;
     }
 
@@ -258,7 +266,7 @@ function startTest(category){
     document.getElementById("testPage").classList.remove("hidden");
 
     document.getElementById("testTitle").innerText =
-        "Tes Konsentrasi " + category.toUpperCase();
+        "Tes " + category.toUpperCase();
 
     renderQuestions();
     startTimer();
@@ -268,11 +276,22 @@ function renderQuestions(){
     let box = document.getElementById("questionBox");
     box.innerHTML = "";
 
-    currentQuestions.forEach((question,index)=>{
+    currentQuestions.forEach((q,index)=>{
+        let optionsHTML = "";
+
+        q.options.forEach(opt=>{
+            optionsHTML += `
+            <label>
+                <input type="radio" name="q${index}" value="${opt}">
+                ${opt}
+            </label><br>
+            `;
+        });
+
         box.innerHTML += `
             <div class="question">
-                <p>${index+1}. ${question}</p>
-                <input type="text" id="answer${index}" placeholder="Jawaban Anda">
+                <p>${index+1}. ${q.question}</p>
+                ${optionsHTML}
             </div>
         `;
     });
@@ -283,16 +302,15 @@ function startTimer(){
     timeLeft = 300;
 
     timer = setInterval(()=>{
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
+        let min = Math.floor(timeLeft/60);
+        let sec = timeLeft%60;
 
         document.getElementById("timer").innerText =
-            `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+            `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
 
         timeLeft--;
 
         if(timeLeft < 0){
-            clearInterval(timer);
             submitTest();
         }
     },1000);
@@ -301,17 +319,15 @@ function startTimer(){
 function submitTest(){
     clearInterval(timer);
 
-    let answered = 0;
+    let score = 0;
 
     currentQuestions.forEach((q,index)=>{
-        let ans = document.getElementById(`answer${index}`).value.trim();
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
 
-        if(ans !== ""){
-            answered++;
+        if(selected && selected.value === q.answer){
+            score += 10;
         }
     });
-
-    let score = answered * 10;
 
     document.getElementById("testPage").classList.add("hidden");
     document.getElementById("resultPage").classList.remove("hidden");
@@ -321,18 +337,16 @@ function submitTest(){
 
     if(score >= 80){
         document.getElementById("statusText").innerText =
-        "LULUS - Selamat, Anda berhak mengambil konsentrasi ini.";
+        "LULUS - Selamat, Anda lolos konsentrasi ini.";
     }else{
         document.getElementById("statusText").innerText =
-        "TIDAK LULUS - Wajib Tes Ulang sampai nilai minimal 80.";
+        "TIDAK LULUS - Wajib Tes Ulang.";
     }
 }
 
 function retryTest(){
-    if(document.getElementById("statusText").innerText.includes("TIDAK")){
-        document.getElementById("resultPage").classList.add("hidden");
-        startTest(currentCategory);
-    }
+    document.getElementById("resultPage").classList.add("hidden");
+    startTest(currentCategory);
 }
 
 function backDashboard(){
