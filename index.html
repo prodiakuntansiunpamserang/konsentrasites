@@ -561,19 +561,21 @@ function renderQuestions(){
     currentQuestions.forEach((q,index)=>{
         let optionsHTML = "";
 
-        q.options.forEach(opt=>{
+        for(let key in q.options){
             optionsHTML += `
-            <label>
-                <input type="radio" name="q${index}" value="${opt}">
-                ${opt}
-            </label><br>
+            <label class="option-box">
+                <input type="radio" name="q${index}" value="${key}">
+                <span><b>${key}.</b> ${q.options[key]}</span>
+            </label>
             `;
-        });
+        }
 
         box.innerHTML += `
             <div class="question">
                 <p>${index+1}. ${q.question}</p>
-                ${optionsHTML}
+                <div class="options-group">
+                    ${optionsHTML}
+                </div>
             </div>
         `;
     });
